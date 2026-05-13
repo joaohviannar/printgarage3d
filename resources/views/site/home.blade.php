@@ -134,6 +134,48 @@
 </section>
 
 {{-- ============================================
+     PRODUTOS EM DESTAQUE
+     ============================================ --}}
+@if(isset($destaques) && $destaques->isNotEmpty())
+<section class="py-20">
+    <div class="container-x">
+        <div class="text-center mb-14">
+            <span class="badge bg-brand-red/10 text-brand-red-300 border border-brand-red-700/40 mb-4">⭐ Em destaque</span>
+            <h2 class="text-3xl lg:text-4xl font-bold">Confira nossos produtos</h2>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach($destaques as $produto)
+                <a href="{{ route('site.produto', $produto->slug) }}" class="product-card group block">
+                    <div class="aspect-square bg-brand-silver-900 overflow-hidden">
+                        @if($produto->imagem_principal)
+                            <img src="{{ asset('storage/' . $produto->imagem_principal) }}"
+                                 alt="{{ $produto->nome }}"
+                                 loading="lazy"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-brand-silver-500 text-5xl">📦</div>
+                        @endif
+                    </div>
+                    <div class="p-4">
+                        <span class="text-xs text-brand-silver-300 uppercase tracking-wider">{{ $produto->categoria->nome }}</span>
+                        <h3 class="font-bold mt-1 mb-2 group-hover:text-brand-red-300 transition-colors line-clamp-2">{{ $produto->nome }}</h3>
+                        <p class="text-lg font-bold text-brand-red-300">R$ {{ number_format($produto->preco_venda, 2, ',', '.') }}</p>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+
+        <div class="text-center mt-10">
+            <a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="btn-secondary">
+                Ver catálogo completo
+            </a>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ============================================
      DIFERENCIAIS
      ============================================ --}}
 <section id="sobre" class="py-20">
