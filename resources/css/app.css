@@ -6,6 +6,117 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* ==========================================
+       PRINT GARAGE 3D - Identidade Visual Oficial
+       ========================================== */
+
+    /* Fontes */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-display: 'Montserrat', 'Inter', sans-serif;
+
+    /* Cor Primária — Vermelho Garagem (oficial do logo) */
+    --color-brand-red: #8e1512;
+    --color-brand-red-50: #fdf2f2;
+    --color-brand-red-100: #fadbda;
+    --color-brand-red-200: #f5b7b4;
+    --color-brand-red-300: #ed8682;
+    --color-brand-red-400: #d44b46;
+    --color-brand-red-500: #b32a26;
+    --color-brand-red-600: #8e1512;
+    --color-brand-red-700: #6e1010;
+    --color-brand-red-800: #4f0a09;
+    --color-brand-red-900: #2e0605;
+
+    /* Metálicos / Cinzas (oficiais do logo) */
+    --color-brand-silver-50: #f8f8f6;
+    --color-brand-silver-100: #ecedea;
+    --color-brand-silver-200: #c0c0bf;
+    --color-brand-silver-300: #9a9a99;
+    --color-brand-silver-400: #6b6b6a;
+    --color-brand-silver-500: #4d4d4c;
+    --color-brand-silver-600: #3f3f3e;
+    --color-brand-silver-700: #2a2a29;
+    --color-brand-silver-800: #1a1a1a;
+    --color-brand-silver-900: #0a0a0a;
+
+    /* Tema Escuro Industrial */
+    --color-brand-dark: #0a0a0a;
+    --color-brand-dark-soft: #1a1a1a;
+    --color-brand-dark-elevated: #262626;
+}
+
+/* ==========================================
+   CUSTOM UTILITIES & COMPONENTS
+   ========================================== */
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-brand-dark text-brand-silver-50 antialiased font-sans;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-display);
+        @apply font-bold tracking-tight;
+    }
+}
+
+@layer components {
+    /* Botão primário (CTA) */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md
+               bg-brand-red text-white font-semibold uppercase tracking-wide text-sm
+               shadow-lg shadow-brand-red/30
+               hover:bg-brand-red-700 hover:shadow-brand-red/50
+               transition-all duration-200
+               focus:outline-none focus:ring-2 focus:ring-brand-red-400 focus:ring-offset-2 focus:ring-offset-brand-dark;
+    }
+
+    /* Botão secundário */
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md
+               bg-brand-silver-800 text-brand-silver-50 font-semibold uppercase tracking-wide text-sm
+               border border-brand-silver-700
+               hover:bg-brand-silver-700 hover:border-brand-silver-200
+               transition-all duration-200;
+    }
+
+    /* Botão WhatsApp */
+    .btn-whatsapp {
+        @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md
+               bg-[#25D366] text-white font-semibold uppercase tracking-wide text-sm
+               shadow-lg shadow-[#25D366]/30
+               hover:bg-[#1ebe5d] hover:shadow-[#25D366]/50
+               transition-all duration-200;
+    }
+
+    /* Card de produto */
+    .product-card {
+        @apply bg-brand-dark-soft rounded-lg overflow-hidden
+               border border-brand-silver-700/50
+               hover:border-brand-red transition-all duration-300
+               hover:shadow-xl hover:shadow-brand-red/10
+               hover:-translate-y-1;
+    }
+
+    /* Container padrão */
+    .container-x {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    /* Tag/badge */
+    .badge {
+        @apply inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full;
+    }
+
+    .badge-b2c {
+        @apply inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-brand-red-900/30 text-brand-red-300 border border-brand-red-700/40;
+    }
+
+    .badge-b2b {
+        @apply inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-brand-silver-700/30 text-brand-silver-100 border border-brand-silver-600/40;
+    }
 }
