@@ -42,7 +42,7 @@ class Insumo extends Model
         return $query->whereColumn('quantidade_atual', '<=', 'quantidade_minima');
     }
 
-    public function estoqueBaixo(): bool
+    public function temEstoqueBaixo(): bool
     {
         return $this->quantidade_atual <= $this->quantidade_minima;
     }

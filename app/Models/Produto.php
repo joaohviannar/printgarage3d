@@ -107,7 +107,7 @@ class Produto extends Model
         return $this->estoque_atual >= $quantidade;
     }
 
-    public function estoqueBaixo(): bool
+    public function temEstoqueBaixo(): bool
     {
         return $this->estoque_atual <= $this->estoque_minimo;
     }
