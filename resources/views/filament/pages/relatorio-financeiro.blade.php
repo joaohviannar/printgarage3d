@@ -1,9 +1,9 @@
 <x-filament-panels::page>
 
     {{-- Formulario de filtros --}}
-    <x-filament-panels::form wire:submit="">
+    <form wire:submit.prevent class="fi-section bg-white dark:bg-gray-900 rounded-xl shadow ring-1 ring-gray-950/5 dark:ring-white/10 p-4">
         {{ $this->form }}
-    </x-filament-panels::form>
+    </form>
 
     @php
         $r = $this->resumo;
