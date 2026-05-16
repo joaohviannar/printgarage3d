@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\ItemVenda;
+use App\Models\Venda;
+use App\Observers\ItemVendaObserver;
+use App\Observers\VendaObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Observers que controlam a automacao de estoque
+        ItemVenda::observe(ItemVendaObserver::class);
+        Venda::observe(VendaObserver::class);
     }
 }
