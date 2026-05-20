@@ -6,6 +6,7 @@ use App\Models\Despesa;
 use App\Models\Venda;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\On;
 
 /**
  * Grafico de linha mostrando vendas e despesas com filtro de periodo.
@@ -35,6 +36,24 @@ class VendasUltimosMesesChart extends ChartWidget
             '1_ano'   => '1 ano',
             'total'   => 'Total',
         ];
+    }
+
+    /**
+     * Quando o usuario muda o filtro do grafico, propaga para o ResumoPeriodoWidget.
+     */
+    public function updatedFilter(): void
+    {
+        $this->dispatch('chart-filtro-alterado', filter: $this->filter);
+    }
+
+    /**
+     * Recebe alteracao vinda do ResumoPeriodoWidget pra manter sincronizado.
+     */
+    #[On('resumo-filtro-alterado')]
+    public function sincronizarComResumo(string $filter): void
+    {
+        $this->filter = $filter;
+        $this->updateChartData();
     }
 
     protected function getData(): array
