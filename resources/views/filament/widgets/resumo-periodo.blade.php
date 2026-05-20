@@ -17,9 +17,9 @@
             </div>
 
             <select wire:model.live="filter"
-                    style="border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); padding: 0.5rem 0.75rem; font-size: 0.875rem; color: inherit; min-width: 8rem;">
+                    style="border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.15); background-color: #1f2937; color: #f9fafb; padding: 0.5rem 0.75rem; font-size: 0.875rem; min-width: 8rem; cursor: pointer;">
                 @foreach($filtros as $key => $label)
-                    <option value="{{ $key }}">{{ $label }}</option>
+                    <option value="{{ $key }}" style="background-color: #1f2937; color: #f9fafb;">{{ $label }}</option>
                 @endforeach
             </select>
         </div>
