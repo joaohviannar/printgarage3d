@@ -56,13 +56,13 @@ class DashboardStatsWidget extends StatsOverviewWidget
             Stat::make('Entradas no mês', $this->formatBRL($entradasMes))
                 ->description($this->descricaoVariacao($entradasMes, $entradasAnterior, 'vs mês anterior'))
                 ->descriptionIcon($this->iconeVariacao($entradasMes, $entradasAnterior))
-                ->color($this->corVariacao($entradasMes, $entradasAnterior))
+                ->color('success')
                 ->chart($this->miniChartVendas()),
 
             Stat::make('Saídas no mês', $this->formatBRL($saidasMes))
                 ->description($this->descricaoVariacao($saidasMes, $saidasAnterior, 'vs mês anterior'))
                 ->descriptionIcon($this->iconeVariacao($saidasMes, $saidasAnterior, invertido: true))
-                ->color($this->corVariacao($saidasMes, $saidasAnterior, invertido: true)),
+                ->color('danger'),
 
             Stat::make('Lucro Líquido', $this->formatBRL($lucroMes))
                 ->description($this->descricaoVariacao($lucroMes, $lucroAnterior, 'vs mês anterior'))
