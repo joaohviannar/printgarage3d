@@ -9,6 +9,12 @@
     <title>@yield('title', \App\Services\ConfiguracaoService::get('site_titulo', 'Print Garage 3D'))</title>
     <meta name="description" content="@yield('description', \App\Services\ConfiguracaoService::get('site_descricao'))">
     <meta name="theme-color" content="#8e1512">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="author" content="Print Garage 3D">
+    <meta name="keywords" content="impressão 3D, impressao 3d, print garage, print garage 3d, peças personalizadas 3D, bonecos 3D, suportes 3D, placas PIX, logo 3D, brindes corporativos">
+    <meta name="geo.region" content="BR">
+    <meta property="og:site_name" content="Print Garage 3D">
 
     {{-- Open Graph (WhatsApp / Instagram preview) --}}
     <meta property="og:type" content="website">
@@ -34,6 +40,48 @@
 
     {{-- Vite (Tailwind + JS) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Dados estruturados (Schema.org) - ajuda o Google a reconhecer a empresa --}}
+    @php
+        $cfg = fn($k, $d = null) => \App\Services\ConfiguracaoService::get($k, $d);
+        $whatsappNumero = preg_replace('/\D/', '', $cfg('whatsapp_numero', ''));
+    @endphp
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Print Garage 3D",
+        "alternateName": "Print Garage",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset('assets/brand/logo/logo-principal.png') }}",
+        "image": "{{ asset('assets/brand/logo/logo-principal.png') }}",
+        "description": "{{ $cfg('site_descricao', 'Especialistas em impressão 3D personalizada.') }}",
+        "email": "{{ $cfg('empresa_email', '') }}",
+        "telephone": "+{{ $whatsappNumero }}",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "BR"
+        },
+        "sameAs": [
+            "{{ $cfg('instagram_url', 'https://www.instagram.com/printgarage_3d/') }}"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+{{ $whatsappNumero }}",
+            "contactType": "customer service",
+            "availableLanguage": "Portuguese"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Print Garage 3D",
+        "url": "{{ url('/') }}"
+    }
+    </script>
 
     @stack('head')
 </head>
