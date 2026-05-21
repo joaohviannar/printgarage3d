@@ -45,43 +45,42 @@
     @php
         $cfg = fn($k, $d = null) => \App\Services\ConfiguracaoService::get($k, $d);
         $whatsappNumero = preg_replace('/\D/', '', $cfg('whatsapp_numero', ''));
-    @endphp
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Print Garage 3D",
-        "alternateName": "Print Garage",
-        "url": "{{ url('/') }}",
-        "logo": "{{ asset('assets/brand/logo/logo-principal.png') }}",
-        "image": "{{ asset('assets/brand/logo/logo-principal.png') }}",
-        "description": "{{ $cfg('site_descricao', 'Especialistas em impressão 3D personalizada.') }}",
-        "email": "{{ $cfg('empresa_email', '') }}",
-        "telephone": "+{{ $whatsappNumero }}",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "BR"
-        },
-        "sameAs": [
-            "{{ $cfg('instagram_url', 'https://www.instagram.com/printgarage_3d/') }}"
-        ],
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+{{ $whatsappNumero }}",
-            "contactType": "customer service",
-            "availableLanguage": "Portuguese"
-        }
-    }
-    </script>
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Print Garage 3D",
-        "url": "{{ url('/') }}"
-    }
-    </script>
+        $organizationSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'Print Garage 3D',
+            'alternateName' => 'Print Garage',
+            'url' => url('/'),
+            'logo' => asset('assets/brand/logo/logo-principal.png'),
+            'image' => asset('assets/brand/logo/logo-principal.png'),
+            'description' => $cfg('site_descricao', 'Especialistas em impressão 3D personalizada.'),
+            'email' => $cfg('empresa_email', ''),
+            'telephone' => '+' . $whatsappNumero,
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressCountry' => 'BR',
+            ],
+            'sameAs' => [
+                $cfg('instagram_url', 'https://www.instagram.com/printgarage_3d/'),
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => '+' . $whatsappNumero,
+                'contactType' => 'customer service',
+                'availableLanguage' => 'Portuguese',
+            ],
+        ];
+
+        $websiteSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => 'Print Garage 3D',
+            'url' => url('/'),
+        ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    <script type="application/ld+json">{!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
     @stack('head')
 </head>
