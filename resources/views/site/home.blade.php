@@ -194,6 +194,9 @@
                     ['icon' => '💬', 'titulo' => 'Atendimento Próximo', 'desc' => 'Conversamos por WhatsApp do briefing à entrega. Sem burocracia, com atenção.'],
                     ['icon' => '🏆', 'titulo' => 'Qualidade Garantida', 'desc' => 'Acabamento cuidadoso e revisão peça por peça antes da entrega.'],
                     ['icon' => '💰', 'titulo' => 'Preço Justo', 'desc' => 'Trabalho artesanal com valores que cabem no bolso, sem abrir mão da qualidade.'],
+                    ['icon' => '📐', 'titulo' => 'Modelagem Sob Medida', 'desc' => 'Criamos o modelo 3D do zero a partir da sua ideia, foto ou desenho. Não precisa ter o arquivo pronto.'],
+                    ['icon' => '🌱', 'titulo' => 'Material Sustentável', 'desc' => 'Trabalhamos com filamentos PLA de fontes renováveis e biodegradáveis, reduzindo o impacto ambiental.'],
+                    ['icon' => '📦', 'titulo' => 'Enviamos para Todo Brasil', 'desc' => 'Sua peça embalada com cuidado e enviada com segurança para qualquer lugar do país.'],
                 ];
             @endphp
 
