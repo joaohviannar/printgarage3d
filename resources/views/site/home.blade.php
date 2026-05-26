@@ -15,25 +15,35 @@
         <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-brand-red-900 rounded-full blur-3xl"></div>
     </div>
 
-    <div class="container-x relative py-20 lg:py-32">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="container-x relative py-12 sm:py-16 lg:py-32">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+            {{-- Imagem / Logo destaque (aparece primeiro no mobile) --}}
+            <div class="relative order-1 lg:order-2">
+                <div class="relative aspect-square max-w-[220px] sm:max-w-xs lg:max-w-md mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-red/20 to-transparent rounded-3xl blur-2xl"></div>
+                    <img src="{{ asset('assets/brand/logo/logo-principal.png') }}"
+                         alt="Print Garage 3D"
+                         class="relative w-full h-full object-contain drop-shadow-2xl">
+                </div>
+            </div>
+
             {{-- Texto --}}
-            <div>
-                <span class="badge bg-brand-red/10 text-brand-red-300 border border-brand-red-700/40 mb-6">
+            <div class="order-2 lg:order-1 text-center lg:text-left">
+                <span class="badge bg-brand-red/10 text-brand-red-300 border border-brand-red-700/40 mb-5">
                     🔥 Impressão 3D personalizada
                 </span>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
+                <h1 class="text-3xl sm:text-4xl lg:text-6xl font-black leading-tight mb-5">
                     Suas ideias,
                     <span class="block bg-gradient-to-r from-brand-red-400 to-brand-red-600 bg-clip-text text-transparent">
                         impressas em 3D.
                     </span>
                 </h1>
-                <p class="text-lg text-brand-silver-100 mb-8 max-w-xl leading-relaxed">
+                <p class="text-base sm:text-lg text-brand-silver-100 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                     Bonecos, suportes, peças personalizadas e soluções empresariais.
                     Da concepção à entrega, cuidamos de cada detalhe com qualidade artesanal e tecnologia de ponta.
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                     <a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="btn-primary">
                         Ver Catálogo
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +62,7 @@
                 </div>
 
                 {{-- Trust indicators --}}
-                <div class="mt-10 flex items-center gap-8 text-sm text-brand-silver-200">
+                <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-brand-silver-200">
                     <div class="flex items-center gap-2">
                         <span class="text-brand-red text-xl">✓</span>
                         Personalizado
@@ -67,16 +77,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- Imagem / Logo destaque --}}
-            <div class="relative">
-                <div class="relative aspect-square max-w-md mx-auto">
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-red/20 to-transparent rounded-3xl blur-2xl"></div>
-                    <img src="{{ asset('assets/brand/logo/logo-principal.png') }}"
-                         alt="Print Garage 3D"
-                         class="relative w-full h-full object-contain drop-shadow-2xl">
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -84,9 +84,9 @@
 {{-- ============================================
      DUAS DIVISÕES: B2C E B2B
      ============================================ --}}
-<section class="py-20 bg-brand-dark-soft">
+<section class="py-14 sm:py-20 bg-brand-dark-soft">
     <div class="container-x">
-        <div class="text-center mb-14">
+        <div class="text-center mb-10 sm:mb-14">
             <h2 class="text-3xl lg:text-4xl font-bold mb-4">Pra quem é a Print Garage?</h2>
             <p class="text-brand-silver-200 max-w-2xl mx-auto">
                 Atendemos pessoas físicas com peças únicas e empresas com soluções corporativas personalizadas.
@@ -96,7 +96,7 @@
         <div class="grid md:grid-cols-2 gap-8">
             {{-- B2C --}}
             <a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}"
-               class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-red-900/40 to-brand-dark p-8 border border-brand-red-700/30 hover:border-brand-red transition-all hover:-translate-y-1">
+               class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-red-900/40 to-brand-dark p-6 sm:p-8 border border-brand-red-700/30 hover:border-brand-red transition-all hover:-translate-y-1">
                 <span class="badge-b2c mb-4">B2C — Para Você</span>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-brand-red-300 transition-colors">
                     Peças Pessoais e Personalizadas
@@ -114,7 +114,7 @@
 
             {{-- B2B --}}
             <a href="{{ route('site.catalogo', ['tipo' => 'B2B']) }}"
-               class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-silver-800 to-brand-dark p-8 border border-brand-silver-700/40 hover:border-brand-silver-200 transition-all hover:-translate-y-1">
+               class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-brand-silver-800 to-brand-dark p-6 sm:p-8 border border-brand-silver-700/40 hover:border-brand-silver-200 transition-all hover:-translate-y-1">
                 <span class="badge-b2b mb-4">B2B — Para Empresas</span>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-brand-silver-50 transition-colors">
                     Soluções Empresariais
@@ -137,9 +137,9 @@
      PRODUTOS EM DESTAQUE
      ============================================ --}}
 @if(isset($destaques) && $destaques->isNotEmpty())
-<section class="py-20">
+<section class="py-14 sm:py-20">
     <div class="container-x">
-        <div class="text-center mb-14">
+        <div class="text-center mb-10 sm:mb-14">
             <span class="badge bg-brand-red/10 text-brand-red-300 border border-brand-red-700/40 mb-4">⭐ Em destaque</span>
             <h2 class="text-3xl lg:text-4xl font-bold">Confira nossos produtos</h2>
         </div>
@@ -178,9 +178,9 @@
 {{-- ============================================
      DIFERENCIAIS
      ============================================ --}}
-<section id="sobre" class="py-20">
+<section id="sobre" class="py-14 sm:py-20">
     <div class="container-x">
-        <div class="text-center mb-14">
+        <div class="text-center mb-10 sm:mb-14">
             <span class="badge bg-brand-red/10 text-brand-red-300 border border-brand-red-700/40 mb-4">Por que a Print Garage?</span>
             <h2 class="text-3xl lg:text-4xl font-bold">Da garagem para o seu projeto</h2>
         </div>
@@ -211,7 +211,7 @@
 {{-- ============================================
      CTA FINAL
      ============================================ --}}
-<section class="py-20 bg-gradient-to-br from-brand-red-900/30 via-brand-dark to-brand-dark">
+<section class="py-14 sm:py-20 bg-gradient-to-br from-brand-red-900/30 via-brand-dark to-brand-dark">
     <div class="container-x text-center">
         <h2 class="text-3xl lg:text-5xl font-bold mb-6">
             Pronto para criar algo único?

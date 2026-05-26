@@ -10,7 +10,7 @@
         {{-- Cabeçalho --}}
         <div class="text-center mb-14">
             <span class="badge bg-brand-red/10 text-brand-red-300 border border-brand-red-700/40 mb-4">🤝 Quem confia na gente</span>
-            <h1 class="text-4xl lg:text-5xl font-bold mb-4">Nossos Parceiros</h1>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Nossos Parceiros</h1>
             <p class="text-brand-silver-200 max-w-2xl mx-auto">
                 Empresas e marcas que caminham junto com a Print Garage 3D. Clique em um parceiro para saber mais.
             </p>

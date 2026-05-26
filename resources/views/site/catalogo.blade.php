@@ -11,7 +11,7 @@
             <span class="{{ $tipo === 'B2C' ? 'badge-b2c' : 'badge-b2b' }} mb-4">
                 {{ $tipo === 'B2C' ? 'Para Você' : 'Para Empresas' }}
             </span>
-            <h1 class="text-4xl lg:text-5xl font-bold mb-4">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
                 Catálogo {{ $tipo === 'B2C' ? 'Pessoal' : 'Empresarial' }}
             </h1>
             <p class="text-brand-silver-200 max-w-2xl mx-auto">
