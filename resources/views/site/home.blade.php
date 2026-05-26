@@ -221,13 +221,16 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($parcerias as $parceiro)
+                @php
+                    $dadosParceiro = [
+                        'nome' => $parceiro->nome,
+                        'contato' => $parceiro->contato,
+                        'logo' => $parceiro->logo ? asset('storage/' . $parceiro->logo) : null,
+                        'descricao_completa' => $parceiro->descricao_completa ?: '<p>Sem descrição detalhada.</p>',
+                    ];
+                @endphp
                 <button type="button"
-                        @click='parceiro = @json([
-                            "nome" => $parceiro->nome,
-                            "contato" => $parceiro->contato,
-                            "logo" => $parceiro->logo ? asset("storage/" . $parceiro->logo) : null,
-                            "descricao_completa" => $parceiro->descricao_completa ?: "<p>Sem descrição detalhada.</p>",
-                        ]); aberto = true'
+                        x-on:click="parceiro = @js($dadosParceiro); aberto = true"
                         class="group text-left bg-brand-dark rounded-xl p-6 border border-brand-silver-700/40 hover:border-brand-red hover:-translate-y-1 transition-all duration-200 cursor-pointer">
                     <div class="flex items-center gap-4 mb-4">
                         @if($parceiro->logo)
