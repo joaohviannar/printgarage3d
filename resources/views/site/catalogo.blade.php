@@ -124,9 +124,9 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
                 @php
                     $repositorios = [
-                        ['nome' => 'MakerWorld',     'url' => 'https://makerworld.com/',      'desc' => 'Biblioteca da Bambu Lab', 'emoji' => '🌐'],
-                        ['nome' => 'Printables',     'url' => 'https://www.printables.com/',  'desc' => 'Comunidade Prusa',        'emoji' => '🧩'],
-                        ['nome' => 'Creality Cloud', 'url' => 'https://www.crealitycloud.com/', 'desc' => 'Modelos da Creality',    'emoji' => '☁️'],
+                        ['nome' => 'MakerWorld',     'url' => 'https://makerworld.com/',        'desc' => 'Biblioteca da Bambu Lab', 'logo' => 'assets/repos/makerworld.png'],
+                        ['nome' => 'Printables',     'url' => 'https://www.printables.com/',    'desc' => 'Comunidade Prusa',        'logo' => 'assets/repos/printables.png'],
+                        ['nome' => 'Creality Cloud', 'url' => 'https://www.crealitycloud.com/', 'desc' => 'Modelos da Creality',     'logo' => 'assets/repos/crealitycloud.png'],
                     ];
                 @endphp
 
@@ -137,7 +137,9 @@
                        class="group flex flex-col items-center gap-2 px-6 py-6 rounded-xl bg-brand-dark-soft border border-brand-silver-700/40
                               hover:border-brand-red hover:bg-brand-red-900/10 hover:-translate-y-1
                               transition-all duration-200">
-                        <span class="text-3xl mb-1 transition-transform group-hover:scale-110">{{ $repo['emoji'] }}</span>
+                        <span class="flex items-center justify-center w-16 h-16 mb-1 rounded-xl bg-white p-2.5 transition-transform group-hover:scale-110">
+                            <img src="{{ asset($repo['logo']) }}" alt="{{ $repo['nome'] }}" class="w-full h-full object-contain" loading="lazy">
+                        </span>
                         <span class="font-bold text-base group-hover:text-brand-red-300 transition-colors">{{ $repo['nome'] }}</span>
                         <span class="text-xs text-brand-silver-300">{{ $repo['desc'] }}</span>
                         <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-brand-red-300 opacity-0 group-hover:opacity-100 transition-opacity">
