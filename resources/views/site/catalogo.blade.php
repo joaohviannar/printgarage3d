@@ -112,6 +112,57 @@
             </div>
         @endif
 
+        {{-- ============================================
+             REPOSITÓRIOS 3D EXTERNOS
+             ============================================ --}}
+        <div class="mt-20 pt-12 border-t border-brand-silver-700/40 text-center">
+            <h2 class="text-2xl lg:text-3xl font-bold mb-3">Não encontrou o que procura?</h2>
+            <p class="text-brand-silver-200 max-w-2xl mx-auto mb-10">
+                Entre nesses sites de modelos 3D, escolha o que mais gostar e nos mande o link do modelo pelo WhatsApp — a gente imprime pra você!
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto">
+                @php
+                    $repositorios = [
+                        ['nome' => 'MakerWorld',     'url' => 'https://makerworld.com/',      'desc' => 'Biblioteca da Bambu Lab', 'emoji' => '🌐'],
+                        ['nome' => 'Printables',     'url' => 'https://www.printables.com/',  'desc' => 'Comunidade Prusa',        'emoji' => '🧩'],
+                        ['nome' => 'Creality Cloud', 'url' => 'https://www.crealitycloud.com/', 'desc' => 'Modelos da Creality',    'emoji' => '☁️'],
+                    ];
+                @endphp
+
+                @foreach($repositorios as $repo)
+                    <a href="{{ $repo['url'] }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="group flex flex-col items-center gap-2 px-6 py-6 rounded-xl bg-brand-dark-soft border border-brand-silver-700/40
+                              hover:border-brand-red hover:bg-brand-red-900/10 hover:-translate-y-1
+                              transition-all duration-200">
+                        <span class="text-3xl mb-1 transition-transform group-hover:scale-110">{{ $repo['emoji'] }}</span>
+                        <span class="font-bold text-base group-hover:text-brand-red-300 transition-colors">{{ $repo['nome'] }}</span>
+                        <span class="text-xs text-brand-silver-300">{{ $repo['desc'] }}</span>
+                        <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-brand-red-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Acessar
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="mt-8">
+                <a href="{{ \App\Services\ConfiguracaoService::whatsappLink() }}"
+                   target="_blank"
+                   rel="noopener"
+                   class="btn-whatsapp">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/>
+                    </svg>
+                    Enviar link do modelo
+                </a>
+            </div>
+        </div>
+
     </div>
 </section>
 @endsection

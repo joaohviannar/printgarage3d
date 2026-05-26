@@ -50,6 +50,11 @@
    ========================================== */
 
 @layer base {
+    /* Alpine.js: esconde elementos com x-cloak até o Alpine carregar */
+    [x-cloak] {
+        display: none !important;
+    }
+
     html {
         scroll-behavior: smooth;
     }

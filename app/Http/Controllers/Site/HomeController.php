@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Parceria;
 use App\Models\Produto;
 use Illuminate\View\View;
 
@@ -17,6 +18,8 @@ class HomeController extends Controller
             ->limit(8)
             ->get();
 
-        return view('site.home', compact('destaques'));
+        $parcerias = Parceria::ativas()->get();
+
+        return view('site.home', compact('destaques', 'parcerias'));
     }
 }
