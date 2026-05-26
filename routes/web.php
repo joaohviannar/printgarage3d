@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Site\CatalogoController;
 use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\ParceriaController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ Route::get('/', [HomeController::class, 'index'])->name('site.home');
 
 Route::get('/catalogo', [CatalogoController::class, 'index'])->name('site.catalogo');
 Route::get('/produto/{slug}', [CatalogoController::class, 'show'])->name('site.produto');
+Route::get('/parcerias', [ParceriaController::class, 'index'])->name('site.parcerias');
 
 // SEO
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('site.sitemap');

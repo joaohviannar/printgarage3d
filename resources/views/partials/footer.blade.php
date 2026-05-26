@@ -19,6 +19,7 @@
                     <li><a href="{{ route('site.home') }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Início</a></li>
                     <li><a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Catálogo Pessoal (B2C)</a></li>
                     <li><a href="{{ route('site.catalogo', ['tipo' => 'B2B']) }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Soluções Empresariais (B2B)</a></li>
+                    <li><a href="{{ route('site.parcerias') }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Parceiros</a></li>
                     <li><a href="#sobre" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Sobre a Print Garage</a></li>
                 </ul>
             </div>

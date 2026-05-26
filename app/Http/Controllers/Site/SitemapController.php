@@ -35,6 +35,13 @@ class SitemapController extends Controller
             'priority' => '0.9',
         ];
 
+        // Parcerias
+        $urls[] = [
+            'loc' => route('site.parcerias'),
+            'changefreq' => 'monthly',
+            'priority' => '0.6',
+        ];
+
         // Produtos visiveis no site
         $produtos = Produto::visiveisNoSite()
             ->select(['slug', 'updated_at'])

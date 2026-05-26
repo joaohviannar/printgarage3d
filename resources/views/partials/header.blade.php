@@ -22,6 +22,10 @@
                    class="text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300 transition-colors">
                     Para Empresas
                 </a>
+                <a href="{{ route('site.parcerias') }}"
+                   class="text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300 transition-colors {{ request()->routeIs('site.parcerias') ? 'text-brand-red-300' : '' }}">
+                    Parceiros
+                </a>
                 <a href="#sobre"
                    class="text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300 transition-colors">
                     Sobre
@@ -52,6 +56,7 @@
             <a href="{{ route('site.home') }}" class="block py-2 text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300">Início</a>
             <a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="block py-2 text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300">Para Você</a>
             <a href="{{ route('site.catalogo', ['tipo' => 'B2B']) }}" class="block py-2 text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300">Para Empresas</a>
+            <a href="{{ route('site.parcerias') }}" class="block py-2 text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300">Parceiros</a>
             <a href="#sobre" class="block py-2 text-sm font-semibold uppercase tracking-wider text-brand-silver-100 hover:text-brand-red-300">Sobre</a>
             <a href="{{ \App\Services\ConfiguracaoService::whatsappLink() }}" target="_blank" class="btn-primary w-full mt-3">Fale Conosco</a>
         </div>
