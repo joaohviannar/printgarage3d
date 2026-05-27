@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Produtos\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -81,6 +82,28 @@ class ProdutoForm
                             ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
                             ->maxSize(51200)
                             ->helperText('Opcional. Máx 50MB. Formatos: MP4, WebM, MOV. Dica: vídeos curtos (até ~30s) e comprimidos carregam mais rápido.'),
+
+                        Repeater::make('imagens')
+                            ->relationship()
+                            ->label('Galeria de Fotos (máximo 5)')
+                            ->maxItems(5)
+                            ->reorderableWithButtons()
+                            ->grid(2)
+                            ->collapsible()
+                            ->itemLabel(fn () => 'Foto')
+                            ->addActionLabel('+ Adicionar foto')
+                            ->schema([
+                                FileUpload::make('caminho')
+                                    ->label('Foto')
+                                    ->image()
+                                    ->imageEditor()
+                                    ->disk('public')
+                                    ->directory('produtos/galeria')
+                                    ->visibility('public')
+                                    ->maxSize(5120)
+                                    ->required(),
+                            ])
+                            ->helperText('Fotos adicionais que aparecem como miniaturas na página do produto. Limite: 5.'),
                     ]),
 
                 Section::make('Preços e Estoque')
