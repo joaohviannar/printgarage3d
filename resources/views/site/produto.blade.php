@@ -50,6 +50,30 @@
                         @endforeach
                     </div>
                 @endif
+
+                {{-- Vídeo do produto --}}
+                @if($produto->video)
+                    <div class="mt-6">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-brand-red-300 mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Vídeo do produto
+                        </h3>
+                        <div class="rounded-2xl overflow-hidden border border-brand-silver-700/40 bg-black">
+                            <video
+                                controls
+                                preload="metadata"
+                                playsinline
+                                class="w-full h-auto max-h-[70vh]"
+                                @if($produto->imagem_principal) poster="{{ asset('storage/' . $produto->imagem_principal) }}" @endif>
+                                <source src="{{ asset('storage/' . $produto->video) }}" type="video/mp4">
+                                Seu navegador não suporta reprodução de vídeo.
+                            </video>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             {{-- Detalhes do produto --}}

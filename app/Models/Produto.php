@@ -24,6 +24,7 @@ class Produto extends Model
         'estoque_atual',
         'estoque_minimo',
         'imagem_principal',
+        'video',
         'destaque',
         'visivel_site',
         'ativo',

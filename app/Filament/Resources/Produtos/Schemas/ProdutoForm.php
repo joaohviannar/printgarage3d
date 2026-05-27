@@ -60,8 +60,8 @@ class ProdutoForm
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Imagens')
-                    ->description('Imagem principal exibida no catálogo')
+                Section::make('Mídia')
+                    ->description('Imagem e vídeo exibidos na página do produto')
                     ->schema([
                         FileUpload::make('imagem_principal')
                             ->label('Imagem Principal')
@@ -72,6 +72,15 @@ class ProdutoForm
                             ->visibility('public')
                             ->maxSize(5120)
                             ->helperText('Tamanho máximo: 5MB. Formatos: JPG, PNG, WebP'),
+
+                        FileUpload::make('video')
+                            ->label('Vídeo do Produto')
+                            ->disk('public')
+                            ->directory('produtos/videos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                            ->maxSize(51200)
+                            ->helperText('Opcional. Máx 50MB. Formatos: MP4, WebM, MOV. Dica: vídeos curtos (até ~30s) e comprimidos carregam mais rápido.'),
                     ]),
 
                 Section::make('Preços e Estoque')
