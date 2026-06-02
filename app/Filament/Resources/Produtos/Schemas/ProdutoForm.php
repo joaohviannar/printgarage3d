@@ -80,8 +80,8 @@ class ProdutoForm
                             ->directory('produtos/videos')
                             ->visibility('public')
                             ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
-                            ->maxSize(51200)
-                            ->helperText('Opcional. Máx 50MB. Formatos: MP4, WebM, MOV. Dica: vídeos curtos (até ~30s) e comprimidos carregam mais rápido.'),
+                            ->maxSize(204800)
+                            ->helperText('Opcional. Máx 200MB. Formatos: MP4, WebM, MOV. Dica: vídeos curtos e comprimidos carregam mais rápido para o cliente.'),
 
                         Repeater::make('imagens')
                             ->relationship()
