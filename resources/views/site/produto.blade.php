@@ -24,54 +24,73 @@
 
         <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
-            {{-- Galeria de imagens --}}
-            <div x-data="{ ativa: '{{ $produto->imagem_principal ? asset('storage/' . $produto->imagem_principal) : '' }}' }">
-                <div class="aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-red-lg {{ $produto->imagem_principal ? 'bg-surface' : 'ph grid place-items-center' }}">
-                    @if($produto->imagem_principal)
-                        <img :src="ativa" alt="{{ $produto->nome }}" class="w-full h-full object-cover">
+            {{-- Galeria: foto principal + extras + vídeo no mesmo seletor --}}
+            @php
+                $imgPrincipal = $produto->imagem_principal ? asset('storage/' . $produto->imagem_principal) : '';
+                $videoUrl = $produto->video ? asset('storage/' . $produto->video) : '';
+            @endphp
+            <div x-data="{
+                    tipo: 'imagem',
+                    src: '{{ $imgPrincipal }}',
+                    ver(t, s) {
+                        this.tipo = t;
+                        this.src = s;
+                        if (t !== 'video' && this.$refs.player) this.$refs.player.pause();
+                    }
+                 }">
+
+                {{-- Visualizador principal --}}
+                <div class="relative aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-red-lg {{ $imgPrincipal ? 'bg-surface' : 'ph grid place-items-center' }}">
+                    @if($imgPrincipal)
+                        <img x-show="tipo === 'imagem'" :src="src" alt="{{ $produto->nome }}" class="w-full h-full object-cover">
                     @else
-                        <div class="text-8xl text-silver-2/40">📦</div>
+                        <div x-show="tipo === 'imagem'" class="text-8xl text-silver-2/40">📦</div>
+                    @endif
+
+                    @if($videoUrl)
+                        <video x-show="tipo === 'video'" x-cloak x-ref="player"
+                               :src="src" controls preload="metadata" playsinline
+                               @if($imgPrincipal) poster="{{ $imgPrincipal }}" @endif
+                               class="absolute inset-0 w-full h-full object-contain bg-black">
+                            Seu navegador não suporta reprodução de vídeo.
+                        </video>
                     @endif
                 </div>
 
-                @if($produto->imagens->isNotEmpty())
+                {{-- Miniaturas --}}
+                @if($produto->imagens->isNotEmpty() || $videoUrl)
                     <div class="grid grid-cols-5 gap-2.5 mt-4">
-                        @if($produto->imagem_principal)
-                            <button @click="ativa = '{{ asset('storage/' . $produto->imagem_principal) }}'"
-                                    class="aspect-square rounded-xl overflow-hidden border-2 border-brand">
-                                <img src="{{ asset('storage/' . $produto->imagem_principal) }}" alt="" class="w-full h-full object-cover">
+                        @if($imgPrincipal)
+                            <button type="button" @click="ver('imagem', '{{ $imgPrincipal }}')"
+                                    :class="tipo === 'imagem' && src === '{{ $imgPrincipal }}' ? 'border-brand' : 'border-white/10 hover:border-brand-lt'"
+                                    class="aspect-square rounded-xl overflow-hidden border-2 transition">
+                                <img src="{{ $imgPrincipal }}" alt="" class="w-full h-full object-cover">
                             </button>
                         @endif
+
                         @foreach($produto->imagens as $img)
-                            <button @click="ativa = '{{ asset('storage/' . $img->caminho) }}'"
-                                    class="aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-brand-lt transition">
-                                <img src="{{ asset('storage/' . $img->caminho) }}" alt="" class="w-full h-full object-cover">
+                            @php $imgUrl = asset('storage/' . $img->caminho); @endphp
+                            <button type="button" @click="ver('imagem', '{{ $imgUrl }}')"
+                                    :class="tipo === 'imagem' && src === '{{ $imgUrl }}' ? 'border-brand' : 'border-white/10 hover:border-brand-lt'"
+                                    class="aspect-square rounded-xl overflow-hidden border-2 transition">
+                                <img src="{{ $imgUrl }}" alt="" class="w-full h-full object-cover">
                             </button>
                         @endforeach
-                    </div>
-                @endif
 
-                {{-- Vídeo do produto --}}
-                @if($produto->video)
-                    <div class="mt-6">
-                        <h3 class="font-head text-xs font-bold uppercase tracking-[0.18em] text-brand-lt mb-3 flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            Vídeo do produto
-                        </h3>
-                        <div class="rounded-3xl overflow-hidden border border-white/10 bg-black">
-                            <video
-                                controls
-                                preload="metadata"
-                                playsinline
-                                class="w-full h-auto max-h-[70vh]"
-                                @if($produto->imagem_principal) poster="{{ asset('storage/' . $produto->imagem_principal) }}" @endif>
-                                <source src="{{ asset('storage/' . $produto->video) }}" type="video/mp4">
-                                Seu navegador não suporta reprodução de vídeo.
-                            </video>
-                        </div>
+                        {{-- Miniatura do vídeo --}}
+                        @if($videoUrl)
+                            <button type="button" @click="ver('video', '{{ $videoUrl }}')"
+                                    :class="tipo === 'video' ? 'border-brand' : 'border-white/10 hover:border-brand-lt'"
+                                    class="relative aspect-square rounded-xl overflow-hidden border-2 transition bg-black grid place-items-center"
+                                    aria-label="Ver vídeo do produto">
+                                @if($imgPrincipal)
+                                    <img src="{{ $imgPrincipal }}" alt="" class="absolute inset-0 w-full h-full object-cover opacity-40">
+                                @endif
+                                <svg class="relative h-7 w-7 text-silver drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        @endif
                     </div>
                 @endif
             </div>
