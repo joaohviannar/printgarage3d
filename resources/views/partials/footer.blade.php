@@ -1,70 +1,59 @@
-<footer class="bg-brand-dark-soft border-t border-brand-silver-700/40 mt-20">
-    <div class="container-x py-12">
-        <div class="grid md:grid-cols-3 gap-10">
+@php $cfg = fn($k, $d = null) => \App\Services\ConfiguracaoService::get($k, $d); @endphp
 
-            {{-- Coluna 1: Logo + sobre --}}
+<footer class="border-t border-white/5 bg-ink mt-auto">
+    <div class="container-x py-14">
+        <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+
+            {{-- Marca --}}
             <div>
-                <img src="{{ asset('assets/brand/logo/logo-principal.png') }}"
-                     alt="Print Garage 3D"
-                     class="h-16 w-auto mb-4">
-                <p class="text-sm text-brand-silver-200 leading-relaxed">
-                    Especialistas em impressão 3D personalizada. Transformamos suas ideias em peças reais com qualidade e dedicação.
+                <div class="flex items-center gap-2.5">
+                    <img src="{{ asset('assets/brand/logo/icone.png') }}" alt="" class="h-9 w-9 object-contain">
+                    <span class="font-head font-extrabold tracking-tight text-[15px]">
+                        PRINT <span class="text-brand-lt">GARAGE</span> <span class="text-silver-2 font-bold">3D</span>
+                    </span>
+                </div>
+                <p class="mt-4 text-silver-2 max-w-sm leading-relaxed">
+                    Especialistas em impressão 3D personalizada em Brasília-DF. Transformamos suas ideias em peças reais com qualidade e dedicação.
                 </p>
             </div>
 
-            {{-- Coluna 2: Links rápidos --}}
+            {{-- Navegação --}}
             <div>
-                <h3 class="text-sm font-bold uppercase tracking-wider text-brand-red-300 mb-4">Navegação</h3>
-                <ul class="space-y-2">
-                    <li><a href="{{ route('site.home') }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Início</a></li>
-                    <li><a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Catálogo Pessoal (B2C)</a></li>
-                    <li><a href="{{ route('site.catalogo', ['tipo' => 'B2B']) }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Soluções Empresariais (B2B)</a></li>
-                    <li><a href="{{ route('site.parcerias') }}" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Parceiros</a></li>
-                    <li><a href="#sobre" class="text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">Sobre a Print Garage</a></li>
+                <h4 class="font-head font-bold text-sm uppercase tracking-wider text-silver">Navegação</h4>
+                <ul class="mt-4 space-y-2.5 text-silver-2">
+                    <li><a href="{{ route('site.home') }}" class="hover:text-brand-lt transition">Início</a></li>
+                    <li><a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="hover:text-brand-lt transition">Para Você (B2C)</a></li>
+                    <li><a href="{{ route('site.catalogo', ['tipo' => 'B2B']) }}" class="hover:text-brand-lt transition">Para Empresas (B2B)</a></li>
+                    <li><a href="{{ route('site.parcerias') }}" class="hover:text-brand-lt transition">Parceiros</a></li>
+                    <li><a href="{{ route('site.home') }}#sobre" class="hover:text-brand-lt transition">Sobre</a></li>
                 </ul>
             </div>
 
-            {{-- Coluna 3: Contato + redes --}}
+            {{-- Contato --}}
             <div>
-                <h3 class="text-sm font-bold uppercase tracking-wider text-brand-red-300 mb-4">Contato</h3>
-                <div class="space-y-3">
-                    <a href="{{ \App\Services\ConfiguracaoService::whatsappLink() }}"
-                       target="_blank"
-                       rel="noopener"
-                       class="flex items-center gap-3 text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/>
-                        </svg>
-                        WhatsApp
-                    </a>
-                    <a href="{{ \App\Services\ConfiguracaoService::get('instagram_url', '#') }}"
-                       target="_blank"
-                       rel="noopener"
-                       class="flex items-center gap-3 text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                        </svg>
-                        {{ \App\Services\ConfiguracaoService::get('instagram_handle', '@printgarage_3d') }}
-                    </a>
-                    <a href="mailto:{{ \App\Services\ConfiguracaoService::get('empresa_email') }}"
-                       class="flex items-center gap-3 text-sm text-brand-silver-100 hover:text-brand-red-300 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        {{ \App\Services\ConfiguracaoService::get('empresa_email') }}
-                    </a>
-                </div>
+                <h4 class="font-head font-bold text-sm uppercase tracking-wider text-silver">Contato</h4>
+                <ul class="mt-4 space-y-2.5 text-silver-2">
+                    <li>
+                        <a href="{{ \App\Services\ConfiguracaoService::whatsappLink() }}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-wa transition">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"/></svg>
+                            WhatsApp
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ $cfg('instagram_url', 'https://www.instagram.com/printgarage_3d/') }}" target="_blank" rel="noopener" class="hover:text-brand-lt transition">
+                            {{ $cfg('instagram_handle', '@printgarage_3d') }}
+                        </a>
+                    </li>
+                    @if($cfg('empresa_email'))
+                        <li><a href="mailto:{{ $cfg('empresa_email') }}" class="hover:text-brand-lt transition">{{ $cfg('empresa_email') }}</a></li>
+                    @endif
+                </ul>
             </div>
         </div>
 
-        {{-- Linha inferior --}}
-        <div class="mt-10 pt-6 border-t border-brand-silver-700/40 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-xs text-brand-silver-200">
-                &copy; {{ date('Y') }} {{ \App\Services\ConfiguracaoService::get('empresa_nome', 'Print Garage 3D') }}. Todos os direitos reservados.
-            </p>
-            <p class="text-xs text-brand-silver-300">
-                Feito com <span class="text-brand-red">♥</span> e impressão 3D
-            </p>
+        <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/5 pt-6 text-sm text-silver-2/70">
+            <p>&copy; {{ date('Y') }} {{ $cfg('empresa_nome', 'Print Garage 3D') }}. Todos os direitos reservados.</p>
+            <p>Feito com <span class="text-brand-lt">♥</span> e impressão 3D</p>
         </div>
     </div>
 </footer>

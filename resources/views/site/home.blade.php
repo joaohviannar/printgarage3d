@@ -61,11 +61,6 @@
                              alt="Print Garage 3D"
                              class="w-4/5 h-4/5 object-contain drop-shadow-2xl">
                     </div>
-                    {{-- chip flutuante --}}
-                    <div class="absolute -bottom-4 -left-3 rounded-2xl border border-white/10 bg-surface/95 px-4 py-3 shadow-red-sm backdrop-blur">
-                        <p class="ph-label text-[10px] uppercase tracking-wider text-silver-2/60">Camada</p>
-                        <p class="font-head font-extrabold text-lg leading-none text-silver">0.12<span class="text-silver-2 text-sm font-bold">mm</span></p>
-                    </div>
                 </div>
             </div>
 
@@ -166,7 +161,7 @@
 @endif
 
 {{-- ===================== DIFERENCIAIS ===================== --}}
-<section id="sobre" class="relative py-16 sm:py-24">
+<section id="sobre" class="relative py-16 sm:py-24 scroll-mt-20">
     <div class="container-x">
         <div class="max-w-2xl">
             <p class="font-head text-xs font-bold uppercase tracking-[0.18em] text-brand-lt">Por que a Print Garage?</p>
