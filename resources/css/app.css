@@ -43,6 +43,29 @@
     --color-brand-dark: #0a0a0a;
     --color-brand-dark-soft: #1a1a1a;
     --color-brand-dark-elevated: #262626;
+
+    /* ==========================================
+       Aliases do novo design (claude.ai/design)
+       Mesmos valores, nomes curtos usados na nova home
+       ========================================== */
+    --color-ink: #0a0a0a;
+    --color-surface: #1a1a1a;
+    --color-surface-2: #222221;
+    --color-brand: #8e1512;
+    --color-brand-hi: #6e1010;
+    --color-brand-lt: #ed8682;
+    --color-brand-mid: #d44b46;
+    --color-silver: #f8f8f6;
+    --color-silver-2: #c0c0bf;
+    --color-wa: #25D366;
+    --color-wa-hi: #1ebe5b;
+
+    --font-head: 'Montserrat', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+
+    --shadow-red-sm: 0 6px 24px -8px rgba(142, 21, 18, 0.45);
+    --shadow-red-lg: 0 24px 60px -18px rgba(142, 21, 18, 0.55);
+    --shadow-wa: 0 10px 30px -10px rgba(37, 211, 102, 0.5);
 }
 
 /* ==========================================
@@ -57,6 +80,17 @@
 
     html {
         scroll-behavior: smooth;
+    }
+
+    /* Foco visível em todos os elementos interativos (acessibilidade) */
+    a:focus-visible, button:focus-visible {
+        outline: 3px solid #ed8682;
+        outline-offset: 3px;
+        border-radius: 12px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
     }
 
     body {
@@ -123,5 +157,64 @@
 
     .badge-b2b {
         @apply inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-brand-silver-700/30 text-brand-silver-100 border border-brand-silver-600/40;
+    }
+}
+
+/* ==========================================
+   UTILITIES DO NOVO DESIGN (claude.ai/design)
+   ========================================== */
+@layer utilities {
+    .font-head { letter-spacing: -0.02em; }
+
+    /* Texto com gradiente vermelho da marca */
+    .text-grad {
+        background: linear-gradient(100deg, #d44b46 0%, #8e1512 92%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* Textura sutil de grade (vibe de bancada/oficina) */
+    .bg-grid {
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+    }
+
+    /* Placeholder listrado (fallback de imagem) */
+    .ph {
+        background-color: #181817;
+        background-image: repeating-linear-gradient(
+            135deg,
+            rgba(237, 134, 130, 0.10) 0px,
+            rgba(237, 134, 130, 0.10) 2px,
+            transparent 2px,
+            transparent 12px
+        );
+    }
+    .ph-label {
+        font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+        letter-spacing: 0.04em;
+    }
+
+    /* Card hover: sobe + glow vermelho */
+    .lift {
+        transition: transform .28s cubic-bezier(.2, .7, .2, 1), box-shadow .28s ease, border-color .28s ease;
+    }
+    .lift:hover {
+        transform: translateY(-6px);
+        border-color: rgba(237, 134, 130, 0.35);
+        box-shadow: 0 24px 60px -18px rgba(142, 21, 18, 0.55);
+    }
+
+    /* Blob de brilho radial */
+    .glow-red {
+        background: radial-gradient(closest-side, rgba(142, 21, 18, 0.40), transparent 70%);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .lift { transition: none; }
+        .lift:hover { transform: none; }
     }
 }
