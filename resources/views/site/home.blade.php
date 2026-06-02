@@ -117,22 +117,40 @@
 
 {{-- ===================== PRODUTOS EM DESTAQUE ===================== --}}
 @if(isset($destaques) && $destaques->isNotEmpty())
-<section id="produtos" class="relative py-16 sm:py-24 border-y border-white/5 bg-surface/30">
+<section id="produtos" x-data="carrossel()" class="relative py-16 sm:py-24 border-y border-white/5 bg-surface/30">
     <div class="container-x">
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
             <div class="max-w-2xl">
                 <p class="font-head text-xs font-bold uppercase tracking-[0.18em] text-brand-lt">⭐ Em destaque</p>
                 <h2 class="font-head font-extrabold text-silver mt-3 text-3xl sm:text-4xl tracking-tight">Confira nossos produtos</h2>
             </div>
-            <a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="inline-flex w-fit items-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-silver hover:border-brand-lt/40 hover:bg-white/5 transition min-h-[44px]">
-                Ver catálogo completo
-                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
+            <div class="flex items-center gap-3">
+                {{-- Setas do carrossel (desktop) — só aparecem quando há produtos suficientes pra rolar --}}
+                <div x-show="scrollable" x-cloak class="hidden sm:flex items-center gap-2">
+                    <button type="button" @click="prev()" :disabled="atInicio"
+                            class="grid place-items-center h-11 w-11 rounded-full border border-white/10 text-silver hover:bg-white/5 hover:border-brand-lt/40 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                            aria-label="Anterior">
+                        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button type="button" @click="next()" :disabled="atFim"
+                            class="grid place-items-center h-11 w-11 rounded-full border border-white/10 text-silver hover:bg-white/5 hover:border-brand-lt/40 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                            aria-label="Próximo">
+                        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+                <a href="{{ route('site.catalogo', ['tipo' => 'B2C']) }}" class="inline-flex w-fit items-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-silver hover:border-brand-lt/40 hover:bg-white/5 transition min-h-[44px]">
+                    Ver catálogo completo
+                    <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+            </div>
         </div>
 
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {{-- Trilho do carrossel: scroll-snap horizontal (swipe nativo no mobile) --}}
+        <div x-ref="track" @scroll.debounce.60ms="atualiza()"
+             class="mt-12 flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-2">
             @foreach($destaques as $produto)
-                <a href="{{ route('site.produto', $produto->slug) }}" class="lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
+                <a href="{{ route('site.produto', $produto->slug) }}"
+                   class="snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
                     <div class="relative aspect-[4/3] overflow-hidden {{ $produto->imagem_principal ? '' : 'ph grid place-items-center' }}">
                         @if($produto->imagem_principal)
                             <img src="{{ asset('storage/' . $produto->imagem_principal) }}"

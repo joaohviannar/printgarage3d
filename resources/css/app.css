@@ -213,6 +213,15 @@
         background: radial-gradient(closest-side, rgba(142, 21, 18, 0.40), transparent 70%);
     }
 
+    /* Esconde a barra de rolagem do carrossel (mantém o scroll/swipe) */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
     @media (prefers-reduced-motion: reduce) {
         .lift { transition: none; }
         .lift:hover { transform: none; }

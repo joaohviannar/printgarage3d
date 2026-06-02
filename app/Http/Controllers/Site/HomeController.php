@@ -14,7 +14,7 @@ class HomeController extends Controller
             ->destaque()
             ->with('categoria')
             ->orderByDesc('created_at')
-            ->limit(8)
+            ->limit(12)
             ->get();
 
         return view('site.home', compact('destaques'));
