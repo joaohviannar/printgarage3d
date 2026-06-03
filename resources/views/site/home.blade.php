@@ -145,12 +145,17 @@
             </div>
         </div>
 
-        {{-- Trilho do carrossel: scroll-snap horizontal (swipe nativo no mobile) --}}
+        {{-- Trilho do carrossel: peek (metade dos vizinhos visível) + swipe no mobile --}}
+        @php $temPeek = $destaques->count() > 1; @endphp
         <div x-ref="track" @scroll.debounce.60ms="atualiza()"
-             class="mt-12 flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-2">
+             class="mt-12 flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-2">
+
+            {{-- Espaçador inicial: permite centralizar o 1º card mostrando metade do próximo --}}
+            @if($temPeek)<div class="shrink-0 w-1/4" aria-hidden="true"></div>@endif
+
             @foreach($destaques as $produto)
                 <a href="{{ route('site.produto', $produto->slug) }}"
-                   class="snap-start shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
+                   class="snap-center shrink-0 {{ $temPeek ? 'w-1/2' : 'w-full max-w-md mx-auto' }} lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
                     <div class="relative aspect-[4/3] overflow-hidden {{ $produto->imagem_principal ? '' : 'ph grid place-items-center' }}">
                         @if($produto->imagem_principal)
                             <img src="{{ asset('storage/' . $produto->imagem_principal) }}"
@@ -173,6 +178,9 @@
                     </div>
                 </a>
             @endforeach
+
+            {{-- Espaçador final: permite centralizar o último card mostrando metade do anterior --}}
+            @if($temPeek)<div class="shrink-0 w-1/4" aria-hidden="true"></div>@endif
         </div>
     </div>
 </section>

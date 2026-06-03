@@ -28,12 +28,12 @@ Alpine.data('carrossel', () => ({
 
     prev() {
         const t = this.$refs.track;
-        t.scrollBy({ left: -t.clientWidth * 0.9, behavior: 'smooth' });
+        t.scrollBy({ left: -t.clientWidth * 0.5, behavior: 'smooth' });
     },
 
     next() {
         const t = this.$refs.track;
-        t.scrollBy({ left: t.clientWidth * 0.9, behavior: 'smooth' });
+        t.scrollBy({ left: t.clientWidth * 0.5, behavior: 'smooth' });
     },
 }));
 
