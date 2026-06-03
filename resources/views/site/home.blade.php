@@ -127,13 +127,13 @@
             <div class="flex items-center gap-3">
                 {{-- Setas do carrossel (desktop) — só aparecem quando há produtos suficientes pra rolar --}}
                 <div x-show="scrollable" x-cloak class="hidden sm:flex items-center gap-2">
-                    <button type="button" @click="prev()" :disabled="atInicio"
-                            class="grid place-items-center h-11 w-11 rounded-full border border-white/10 text-silver hover:bg-white/5 hover:border-brand-lt/40 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                    <button type="button" @click="prev()"
+                            class="grid place-items-center h-11 w-11 rounded-full border border-white/10 text-silver hover:bg-white/5 hover:border-brand-lt/40 transition"
                             aria-label="Anterior">
                         <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
                     </button>
-                    <button type="button" @click="next()" :disabled="atFim"
-                            class="grid place-items-center h-11 w-11 rounded-full border border-white/10 text-silver hover:bg-white/5 hover:border-brand-lt/40 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                    <button type="button" @click="next()"
+                            class="grid place-items-center h-11 w-11 rounded-full border border-white/10 text-silver hover:bg-white/5 hover:border-brand-lt/40 transition"
                             aria-label="Próximo">
                         <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
@@ -145,16 +145,18 @@
             </div>
         </div>
 
-        {{-- Trilho do carrossel: peek (metade dos vizinhos visível) + swipe no mobile --}}
-        @php $temPeek = $destaques->count() > 1; @endphp
-        <div x-ref="track" @scroll.debounce.60ms="atualiza()"
-             class="mt-12 flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-2">
+        {{-- Trilho do carrossel infinito: peek (metade dos vizinhos) + swipe no mobile --}}
+        @php
+            $temPeek = $destaques->count() > 1;
+            $repeticoes = $temPeek ? 3 : 1; // 3x para o loop infinito (clone | reais | clone)
+        @endphp
+        <div x-ref="track" @scroll="aoRolar()"
+             class="mt-12 flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2">
 
-            {{-- Espaçador inicial: permite centralizar o 1º card mostrando metade do próximo --}}
-            @if($temPeek)<div class="shrink-0 w-1/4" aria-hidden="true"></div>@endif
-
+            @for($c = 0; $c < $repeticoes; $c++)
             @foreach($destaques as $produto)
-                <a href="{{ route('site.produto', $produto->slug) }}"
+                <a data-slide href="{{ route('site.produto', $produto->slug) }}"
+                   @if($temPeek && $c !== 1) aria-hidden="true" tabindex="-1" @endif
                    class="snap-center shrink-0 {{ $temPeek ? 'w-1/2' : 'w-full max-w-md mx-auto' }} lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
                     <div class="relative aspect-[4/3] overflow-hidden {{ $produto->imagem_principal ? '' : 'ph grid place-items-center' }}">
                         @if($produto->imagem_principal)
@@ -178,9 +180,7 @@
                     </div>
                 </a>
             @endforeach
-
-            {{-- Espaçador final: permite centralizar o último card mostrando metade do anterior --}}
-            @if($temPeek)<div class="shrink-0 w-1/4" aria-hidden="true"></div>@endif
+            @endfor
         </div>
     </div>
 </section>
