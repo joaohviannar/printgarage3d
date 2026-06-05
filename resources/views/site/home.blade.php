@@ -151,13 +151,13 @@
             $repeticoes = $temPeek ? 3 : 1; // 3x para o loop infinito (clone | reais | clone)
         @endphp
         <div x-ref="track" @scroll="aoRolar()"
-             class="mt-12 flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2">
+             class="mt-12 flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-2">
 
             @for($c = 0; $c < $repeticoes; $c++)
             @foreach($destaques as $produto)
                 <a data-slide href="{{ route('site.produto', $produto->slug) }}"
                    @if($temPeek && $c !== 1) aria-hidden="true" tabindex="-1" @endif
-                   class="snap-center shrink-0 {{ $temPeek ? 'w-1/2' : 'w-full max-w-md mx-auto' }} lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
+                   class="shrink-0 {{ $temPeek ? 'w-1/2 md:w-1/3' : 'w-full max-w-md mx-auto' }} lift group rounded-3xl border border-white/10 bg-surface overflow-hidden block">
                     <div class="relative aspect-[4/3] overflow-hidden {{ $produto->imagem_principal ? '' : 'ph grid place-items-center' }}">
                         @if($produto->imagem_principal)
                             <img src="{{ asset('storage/' . $produto->imagem_principal) }}"

@@ -48,7 +48,9 @@ Alpine.data('carrossel', () => ({
         const t = this.$refs.track;
         const el = this.slides()[i];
         if (!t || !el) return;
-        const x = el.offsetLeft - (t.clientWidth - el.offsetWidth) / 2;
+        // Alinha o card deixando meia-largura de peek à esquerda.
+        // card 50% -> 1 produto centralizado (mobile); card 33% -> 2 produtos (desktop)
+        const x = el.offsetLeft - el.offsetWidth / 2;
         this._lock = true;
         t.style.scrollBehavior = suave ? 'smooth' : 'auto';
         t.scrollLeft = x;
@@ -83,23 +85,22 @@ Alpine.data('carrossel', () => ({
         this.centralizar(this.idx, true);
     },
 
-    // Swipe livre: quando o usuário para de arrastar, descobre o card central e normaliza
+    // Swipe livre: quando o usuário para de arrastar, encaixa no card mais próximo e normaliza
     aoRolar() {
         if (this._lock || !this.scrollable) return;
         clearTimeout(this._tScroll);
         this._tScroll = setTimeout(() => {
             if (this._lock) return;
             const t = this.$refs.track;
-            const centro = t.scrollLeft + t.clientWidth / 2;
             const s = this.slides();
             let melhor = 0, dist = Infinity;
             s.forEach((el, i) => {
-                const c = el.offsetLeft + el.offsetWidth / 2;
-                const d = Math.abs(c - centro);
+                const pos = el.offsetLeft - el.offsetWidth / 2; // posição de alinhamento do card
+                const d = Math.abs(pos - t.scrollLeft);
                 if (d < dist) { dist = d; melhor = i; }
             });
             this.idx = melhor;
-            this.normalizar();
+            this.centralizar(this.idx, true); // encaixa suavemente (snap por JS)
         }, 140);
     },
 }));
