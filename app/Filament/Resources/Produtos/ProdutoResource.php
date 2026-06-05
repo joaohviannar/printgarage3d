@@ -60,11 +60,21 @@ class ProdutoResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return (string) static::getModel()::estoqueBaixo()->count() ?: null;
+        // Total de produtos cadastrados (dinâmico)
+        return (string) static::getModel()::count();
     }
 
     public static function getNavigationBadgeColor(): ?string
     {
-        return 'danger';
+        // Vermelho quando houver produto com estoque baixo, neutro caso contrário
+        return static::getModel()::estoqueBaixo()->exists() ? 'danger' : 'gray';
+    }
+
+    public static function getNavigationBadgeTooltip(): ?string
+    {
+        $baixo = static::getModel()::estoqueBaixo()->count();
+        return $baixo > 0
+            ? "{$baixo} produto(s) com estoque baixo"
+            : 'Total de produtos cadastrados';
     }
 }
