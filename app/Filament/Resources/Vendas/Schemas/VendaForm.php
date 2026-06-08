@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Vendas\Schemas;
 
 use App\Models\Produto;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -136,16 +137,13 @@ class VendaForm
                                     ->live(onBlur: true)
                                     ->columnSpan(2),
 
-                                TextInput::make('subtotal_display')
+                                Placeholder::make('subtotal_display')
                                     ->label('Subtotal')
-                                    ->prefix('R$')
-                                    ->disabled()
-                                    ->dehydrated(false)
                                     ->columnSpan(2)
-                                    ->formatStateUsing(function ($state, $get) {
+                                    ->content(function ($get) {
                                         $qtd = (float) ($get('quantidade') ?? 0);
                                         $preco = (float) ($get('preco_unitario') ?? 0);
-                                        return number_format($qtd * $preco, 2, ',', '.');
+                                        return 'R$ ' . number_format($qtd * $preco, 2, ',', '.');
                                     }),
                             ])
                             ->itemLabel(fn (array $state) => isset($state['produto_id']) ? (Produto::find($state['produto_id'])?->nome ?? 'Item') : 'Novo item')
@@ -156,13 +154,10 @@ class VendaForm
                 Section::make('Totais e Observações')
                     ->columns(3)
                     ->schema([
-                        TextInput::make('subtotal_calculado')
+                        Placeholder::make('subtotal_calculado')
                             ->label('Subtotal Calculado')
-                            ->prefix('R$')
-                            ->disabled()
-                            ->dehydrated(false)
-                            ->formatStateUsing(function ($state, $get) {
-                                return number_format(self::calcularSubtotal($get('itens') ?? []), 2, ',', '.');
+                            ->content(function ($get) {
+                                return 'R$ ' . number_format(self::calcularSubtotal($get('itens') ?? []), 2, ',', '.');
                             }),
 
                         TextInput::make('desconto')
@@ -173,16 +168,12 @@ class VendaForm
                             ->default(0)
                             ->live(onBlur: true),
 
-                        TextInput::make('total_calculado')
+                        Placeholder::make('total_calculado')
                             ->label('Total Final')
-                            ->prefix('R$')
-                            ->disabled()
-                            ->dehydrated(false)
-                            ->extraAttributes(['class' => 'font-bold text-lg'])
-                            ->formatStateUsing(function ($state, $get) {
+                            ->content(function ($get) {
                                 $subtotal = self::calcularSubtotal($get('itens') ?? []);
                                 $desconto = (float) ($get('desconto') ?? 0);
-                                return number_format(max(0, $subtotal - $desconto), 2, ',', '.');
+                                return 'R$ ' . number_format(max(0, $subtotal - $desconto), 2, ',', '.');
                             }),
 
                         Textarea::make('observacoes')
