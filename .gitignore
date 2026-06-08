@@ -1,6 +1,10 @@
 *.log
 .DS_Store
 .env
+
+# Arquivos de credenciais locais (NUNCA versionar)
+*.local.txt
+CREDENCIAIS*.txt
 .env.backup
 .env.production
 .phpactor.json
