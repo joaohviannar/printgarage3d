@@ -18,5 +18,8 @@ Route::get('/catalogo', [CatalogoController::class, 'index'])->name('site.catalo
 Route::get('/produto/{slug}', [CatalogoController::class, 'show'])->name('site.produto');
 Route::get('/parcerias', [ParceriaController::class, 'index'])->name('site.parcerias');
 
+// Landing B2B exclusiva (acessada apenas por link direto — noindex)
+Route::view('/exclusivo/barbearia', 'site.barbearia')->name('site.b2b.barbearia');
+
 // SEO
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('site.sitemap');
