@@ -34,28 +34,44 @@
 
         $produtos = [
             [
-                'nome' => 'Suporte Magnético para Máquinas',
-                'desc' => 'Mantém as máquinas de corte sempre à mão e organizadas. Sua logo em alto-relevo nas laterais.',
-                'preco' => '120,00',
-                'icone' => '<path d="M7 3v6a5 5 0 0 0 10 0V3"/><path d="M7 3H5m12 0h2M12 14v7m-3 0h6"/>',
+                'nome' => 'Placas com QR Code Personalizadas',
+                'desc' => 'Placas de mesa para avaliações no Google, WiFi, PIX e redes sociais — com a sua logo e as suas cores. Mais avaliações, mais clientes encontrando você.',
+                'preco' => '49,90',
+                'img' => 'produto-1.jpg',
+                'featured' => true,
+                'icone' => '<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M13 13h3v3m-3 4h7v-7"/>',
             ],
             [
-                'nome' => 'Display Organizador de Bancada',
-                'desc' => 'Espaço sob medida para tesouras, pentes e navalhas. Bancada impecável, atendimento mais ágil.',
-                'preco' => '89,90',
-                'icone' => '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5m4-5v5m4-5v5"/>',
-            ],
-            [
-                'nome' => 'Letreiro 3D Decorativo',
-                'desc' => 'Sua logomarca em três dimensões para mesa ou parede. O cartão de visitas da sua marca.',
+                'nome' => 'Logo 3D Decorativa',
+                'desc' => 'Sua logomarca em três dimensões, em camadas e cores fiéis à sua identidade. O letreiro que vira o ponto focal do ambiente.',
                 'preco' => '150,00',
-                'icone' => '<path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2M4 7h16M4 7l-1 13h18L20 7M9 11h6"/>',
+                'img' => 'produto-2.jpg',
+                'featured' => false,
+                'icone' => '<path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
             ],
             [
-                'nome' => 'Bandeja Premium para Pomadas',
-                'desc' => 'Para pomadas e óleos, com texturas exclusivas e o toque sofisticado que o seu cliente percebe.',
-                'preco' => '65,00',
-                'icone' => '<path d="M3 7h18l-1.5 11a2 2 0 0 1-2 1.8H6.5a2 2 0 0 1-2-1.8L3 7Z"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/>',
+                'nome' => 'Estátua Premium de Bancada',
+                'desc' => 'Peça escultural que celebra a arte da barbearia. Acabamento sofisticado que impressiona quem entra e valoriza o seu espaço.',
+                'preco' => '220,00',
+                'img' => 'produto-3.jpg',
+                'featured' => false,
+                'icone' => '<path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/>',
+            ],
+            [
+                'nome' => 'Porta-Cartão Tesoura',
+                'desc' => 'Seus cartões de visita expostos com estilo, numa tesoura de barbeiro estilizada. Praticidade que vira decoração no balcão.',
+                'preco' => '75,00',
+                'img' => 'produto-4.jpg',
+                'featured' => false,
+                'icone' => '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>',
+            ],
+            [
+                'nome' => 'Porta-Cartão Barber (Caveira)',
+                'desc' => 'Porta-cartões temático com caveira barbuda, tesoura e poste de barbearia. Personalidade forte pra marcar presença na recepção.',
+                'preco' => '95,00',
+                'img' => 'produto-5.jpg',
+                'featured' => false,
+                'icone' => '<path d="M12 2a8 8 0 0 0-8 8v4a3 3 0 0 0 3 3v3h10v-3a3 3 0 0 0 3-3v-4a8 8 0 0 0-8-8Z"/><path d="M9 12h.01M15 12h.01M10 18h4"/>',
             ],
         ];
     @endphp
@@ -169,10 +185,18 @@
 
             <div class="grid gap-6 sm:grid-cols-2">
                 @foreach($produtos as $produto)
-                    <article class="lift group rounded-3xl border border-white/10 bg-surface overflow-hidden hover:border-gold/40">
-                        {{-- Espaço para imagem --}}
-                        <div class="ph-gold relative aspect-[16/10] grid place-items-center overflow-hidden">
-                            <svg viewBox="0 0 24 24" class="h-16 w-16 text-gold/40 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">{!! $produto['icone'] !!}</svg>
+                    @php $temFoto = isset($produto['img']) && file_exists(public_path('assets/barbearia/' . $produto['img'])); @endphp
+                    <article class="lift group rounded-3xl border border-white/10 bg-surface overflow-hidden hover:border-gold/40 {{ ($produto['featured'] ?? false) ? 'sm:col-span-2' : '' }}">
+                        {{-- Imagem do produto --}}
+                        <div class="relative grid place-items-center overflow-hidden {{ ($produto['featured'] ?? false) ? 'aspect-[16/9] sm:aspect-[21/8]' : 'aspect-[16/10]' }} {{ $temFoto ? 'bg-ink' : 'ph-gold' }}">
+                            @if($temFoto)
+                                <img src="{{ asset('assets/barbearia/' . $produto['img']) }}"
+                                     alt="{{ $produto['nome'] }}"
+                                     loading="lazy"
+                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            @else
+                                <svg viewBox="0 0 24 24" class="h-16 w-16 text-gold/40 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">{!! $produto['icone'] !!}</svg>
+                            @endif
                             {{-- Tag personalizável --}}
                             <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink shadow-lg">
                                 <svg viewBox="0 0 24 24" class="h-3 w-3" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.5 2.3 7.1L12 16.7 5.7 21l2.3-7.1-6-4.5h7.6L12 2Z"/></svg>
