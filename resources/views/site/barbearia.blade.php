@@ -36,7 +36,7 @@
             [
                 'nome' => 'Placas com QR Code Personalizadas',
                 'desc' => 'Placas de mesa para avaliações no Google, WiFi, PIX e redes sociais — com a sua logo e as suas cores. Mais avaliações, mais clientes encontrando você.',
-                'preco' => '49,90',
+                'preco' => '39,90',
                 'img' => 'produto-1.jpg',
                 'featured' => true,
                 'icone' => '<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M13 13h3v3m-3 4h7v-7"/>',
@@ -44,7 +44,7 @@
             [
                 'nome' => 'Logo 3D Decorativa',
                 'desc' => 'Sua logomarca em três dimensões, em camadas e cores fiéis à sua identidade. O letreiro que vira o ponto focal do ambiente.',
-                'preco' => '150,00',
+                'preco' => '99,90',
                 'img' => 'produto-2.jpg',
                 'featured' => false,
                 'icone' => '<path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
@@ -52,7 +52,7 @@
             [
                 'nome' => 'Estátua Premium de Bancada',
                 'desc' => 'Peça escultural que celebra a arte da barbearia. Acabamento sofisticado que impressiona quem entra e valoriza o seu espaço.',
-                'preco' => '220,00',
+                'preco' => '119,90',
                 'img' => 'produto-3.jpg',
                 'featured' => false,
                 'tag' => false,
@@ -61,7 +61,7 @@
             [
                 'nome' => 'Porta-Cartão Tesoura',
                 'desc' => 'Seus cartões de visita expostos com estilo, numa tesoura de barbeiro estilizada. Praticidade que vira decoração no balcão.',
-                'preco' => '75,00',
+                'preco' => '49,90',
                 'img' => 'produto-4.jpg',
                 'featured' => false,
                 'tag' => false,
@@ -70,7 +70,7 @@
             [
                 'nome' => 'Porta-Cartão Barber (Caveira)',
                 'desc' => 'Porta-cartões temático com caveira barbuda, tesoura e poste de barbearia. Personalidade forte pra marcar presença na recepção.',
-                'preco' => '95,00',
+                'preco' => '59,90',
                 'img' => 'produto-5.jpg',
                 'featured' => false,
                 'tag' => false,
@@ -79,7 +79,7 @@
             [
                 'nome' => 'Organizador de Bancada',
                 'desc' => 'Espaço sob medida para tesouras, pentes e produtos, com divisórias e furos. Bancada impecável e atendimento mais ágil — com a sua marca em relevo.',
-                'preco' => '89,90',
+                'preco' => '99,90',
                 'img' => 'produto-6.jpg',
                 'featured' => false,
                 'icone' => '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5m4-5v5m4-5v5"/>',
@@ -95,7 +95,7 @@
             [
                 'nome' => 'Placa de Parede "Barber Shop"',
                 'desc' => 'Letreiro de parede vazado com tesouras, pentes e navalhas. Personalize com o nome da sua barbearia e transforme a parede em identidade.',
-                'preco' => '130,00',
+                'preco' => '89,90',
                 'img' => 'produto-8.jpg',
                 'featured' => false,
                 'icone' => '<path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9Z"/><path d="M9 22V12h6v10"/>',
