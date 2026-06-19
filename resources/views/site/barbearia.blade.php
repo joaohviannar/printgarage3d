@@ -55,6 +55,7 @@
                 'preco' => '220,00',
                 'img' => 'produto-3.jpg',
                 'featured' => false,
+                'tag' => false,
                 'icone' => '<path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/>',
             ],
             [
@@ -63,6 +64,7 @@
                 'preco' => '75,00',
                 'img' => 'produto-4.jpg',
                 'featured' => false,
+                'tag' => false,
                 'icone' => '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>',
             ],
             [
@@ -71,7 +73,32 @@
                 'preco' => '95,00',
                 'img' => 'produto-5.jpg',
                 'featured' => false,
+                'tag' => false,
                 'icone' => '<path d="M12 2a8 8 0 0 0-8 8v4a3 3 0 0 0 3 3v3h10v-3a3 3 0 0 0 3-3v-4a8 8 0 0 0-8-8Z"/><path d="M9 12h.01M15 12h.01M10 18h4"/>',
+            ],
+            [
+                'nome' => 'Organizador de Bancada',
+                'desc' => 'Espaço sob medida para tesouras, pentes e produtos, com divisórias e furos. Bancada impecável e atendimento mais ágil — com a sua marca em relevo.',
+                'preco' => '89,90',
+                'img' => 'produto-6.jpg',
+                'featured' => false,
+                'icone' => '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5m4-5v5m4-5v5"/>',
+            ],
+            [
+                'nome' => 'Suporte Inclinado para Pentes',
+                'desc' => 'Pentes e acessórios sempre à mão, organizados num display inclinado e elegante. Praticidade que valoriza a sua estação de trabalho.',
+                'preco' => '79,90',
+                'img' => 'produto-7.jpg',
+                'featured' => false,
+                'icone' => '<path d="M4 8h16v4H4z"/><path d="M6 12v4m3-4v4m3-4v4m3-4v4M4 8l2-3h12l2 3"/>',
+            ],
+            [
+                'nome' => 'Placa de Parede "Barber Shop"',
+                'desc' => 'Letreiro de parede vazado com tesouras, pentes e navalhas. Personalize com o nome da sua barbearia e transforme a parede em identidade.',
+                'preco' => '130,00',
+                'img' => 'produto-8.jpg',
+                'featured' => false,
+                'icone' => '<path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9Z"/><path d="M9 22V12h6v10"/>',
             ],
         ];
     @endphp
@@ -198,10 +225,12 @@
                                 <svg viewBox="0 0 24 24" class="h-16 w-16 text-gold/40 transition-transform duration-500 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">{!! $produto['icone'] !!}</svg>
                             @endif
                             {{-- Tag personalizável --}}
-                            <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink shadow-lg">
-                                <svg viewBox="0 0 24 24" class="h-3 w-3" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.5 2.3 7.1L12 16.7 5.7 21l2.3-7.1-6-4.5h7.6L12 2Z"/></svg>
-                                100% Personalizável
-                            </span>
+                            @if($produto['tag'] ?? true)
+                                <span class="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink shadow-lg">
+                                    <svg viewBox="0 0 24 24" class="h-3 w-3" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.5 2.3 7.1L12 16.7 5.7 21l2.3-7.1-6-4.5h7.6L12 2Z"/></svg>
+                                    100% Personalizável
+                                </span>
+                            @endif
                         </div>
                         {{-- Corpo --}}
                         <div class="p-6 sm:p-7">
