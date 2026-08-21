@@ -21,5 +21,8 @@ Route::get('/parcerias', [ParceriaController::class, 'index'])->name('site.parce
 // Landing B2B exclusiva (acessada apenas por link direto — noindex)
 Route::view('/exclusivo/barbearia', 'site.barbearia')->name('site.b2b.barbearia');
 
+// Landing do programa de parceiros para pet shops (pública e indexável)
+Route::view('/parceria/petshop', 'site.petshop')->name('site.b2b.petshop');
+
 // SEO
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('site.sitemap');

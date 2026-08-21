@@ -42,6 +42,13 @@ class SitemapController extends Controller
             'priority' => '0.6',
         ];
 
+        // Landing do programa de parceiros para pet shops
+        $urls[] = [
+            'loc' => route('site.b2b.petshop'),
+            'changefreq' => 'monthly',
+            'priority' => '0.8',
+        ];
+
         // Produtos visiveis no site
         $produtos = Produto::visiveisNoSite()
             ->select(['slug', 'updated_at'])
