@@ -27,6 +27,38 @@ class ConfiguracaoService
     }
 
     /**
+     * Número real da empresa, usado quando a configuração está vazia ou ainda
+     * com o placeholder do seed (5500000000000).
+     */
+    private const WHATSAPP_FALLBACK = '5561994129384';
+
+    /**
+     * Retorna o número de WhatsApp em formato E.164 sem símbolos (5561XXXXXXXXX).
+     *
+     * O WhatsApp é o principal canal de conversão do site: um número inválido
+     * quebra silenciosamente o footer, as páginas de produto e as landings.
+     * Por isso a configuração é validada e, se não for um celular brasileiro
+     * plausível, cai no número real da empresa.
+     */
+    public static function whatsappNumero(): string
+    {
+        $numero = preg_replace('/\D/', '', (string) self::get('whatsapp_numero', ''));
+
+        $valido = preg_match('/^55\d{10,11}$/', $numero)
+            && ! preg_match('/^(\d)\1+$/', substr($numero, 2)); // rejeita 5500000000000
+
+        return $valido ? $numero : self::WHATSAPP_FALLBACK;
+    }
+
+    /**
+     * Número formatado para exibição: (61) 99412-9384.
+     */
+    public static function whatsappExibicao(): string
+    {
+        return preg_replace('/^55(\d{2})(\d{4,5})(\d{4})$/', '($1) $2-$3', self::whatsappNumero());
+    }
+
+    /**
      * Gera o link do WhatsApp dinâmico com mensagem pré-preenchida.
      *
      * @param  string|null  $produto  Nome do produto para inserir na mensagem
@@ -34,14 +66,14 @@ class ConfiguracaoService
      */
     public static function whatsappLink(?string $produto = null): string
     {
-        $numero = self::get('whatsapp_numero', '5500000000000');
+        $numero = self::whatsappNumero();
         $template = self::get('whatsapp_mensagem_padrao', 'Olá! Tenho interesse em saber mais.');
 
         $mensagem = $produto
             ? str_replace('{produto}', $produto, $template)
             : 'Olá! Vim pelo site, gostaria de mais informações.';
 
-        return 'https://wa.me/' . preg_replace('/\D/', '', $numero) . '?text=' . urlencode($mensagem);
+        return 'https://wa.me/' . $numero . '?text=' . urlencode($mensagem);
     }
 
     /**

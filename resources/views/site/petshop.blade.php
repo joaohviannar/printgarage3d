@@ -594,23 +594,13 @@
 @php
     $cfg = fn ($k, $d = null) => \App\Services\ConfiguracaoService::get($k, $d);
 
-    // O WhatsApp é o único caminho de conversão da página: se a configuração
-    // estiver vazia ou com placeholder (ex.: 5500000000000), cai no número do
-    // handoff em vez de publicar 5 CTAs quebrados.
-    $waConfigurado = preg_replace('/\D/', '', (string) $cfg('whatsapp_numero', ''));
-    $waValido = preg_match('/^55\d{10,11}$/', $waConfigurado)
-        && ! preg_match('/^(\d)\1+$/', substr($waConfigurado, 2));
-
-    $waNumero = $waValido ? $waConfigurado : '5561994129384';
-    $waMsg    = 'Olá! Tenho um pet shop e quero ser parceiro da Print Garage 3D nas miniaturas 3D de pets.';
-    $waLink   = 'https://wa.me/' . $waNumero . '?text=' . rawurlencode($waMsg);
-
-    // (61) 99412-9384 — derivado do número configurado, sem o DDI
-    $waExibicao = preg_replace(
-        '/^55(\d{2})(\d{4,5})(\d{4})$/',
-        '($1) $2-$3',
-        $waNumero
-    );
+    // whatsappNumero() valida a configuração e cai no número real da empresa
+    // se ela estiver vazia ou com placeholder — o WhatsApp é o único caminho
+    // de conversão desta página.
+    $waNumero   = \App\Services\ConfiguracaoService::whatsappNumero();
+    $waExibicao = \App\Services\ConfiguracaoService::whatsappExibicao();
+    $waMsg      = 'Olá! Tenho um pet shop e quero ser parceiro da Print Garage 3D nas miniaturas 3D de pets.';
+    $waLink     = 'https://wa.me/' . $waNumero . '?text=' . rawurlencode($waMsg);
 
     $faqs = [
         ['q' => 'Preciso ter equipe ou funcionário dedicado?',      'a' => 'Não. Quem já atende no balcão dá conta: mostrar a peça-amostra, pedir uma foto de corpo inteiro do pet e nos repassar o pedido. Leva menos tempo do que registrar uma venda de ração.'],
