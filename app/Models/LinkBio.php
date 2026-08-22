@@ -32,17 +32,24 @@ class LinkBio extends Model
     }
 
     /**
-     * Ícones disponíveis (o design usa códigos monoespaçados de até 3 letras).
+     * Ícones disponíveis. A chave é o identificador guardado no banco; o
+     * desenho de cada um vive em resources/views/site/partials/link-icone.blade.php.
+     *
+     * WA, IG, TIKTOK e PIX são renderizados com a cor da própria marca;
+     * os demais usam o vermelho da Print Garage 3D.
      */
     public const ICONES = [
-        'WA'  => 'WA · WhatsApp',
-        'B2C' => 'B2C · Catálogo pessoal',
-        'B2B' => 'B2B · Catálogo empresas',
-        'PAR' => 'PAR · Parcerias',
-        'IG'  => 'IG · Instagram',
-        '@'   => '@ · E-mail',
-        'URL' => 'URL · Link genérico',
-        'PIX' => 'PIX · Pagamento',
+        'WA'     => 'WhatsApp',
+        'IG'     => 'Instagram',
+        'TIKTOK' => 'TikTok',
+        'B2C'    => 'Catálogo para pessoas (caixa)',
+        'B2B'    => 'Catálogo para empresas (prédio)',
+        'BARBER' => 'Barbearias (tesoura)',
+        'PET'    => 'Pet shops (patinha)',
+        'PAR'    => 'Parcerias (aperto de mãos)',
+        '@'      => 'E-mail (envelope)',
+        'PIX'    => 'PIX',
+        'URL'    => 'Link genérico (corrente)',
     ];
 
     // ====== Scopes ======

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\LinkBios\Tables;
 
+use App\Models\LinkBio;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -19,7 +20,8 @@ class LinkBiosTable
                 TextColumn::make('icone')
                     ->label('Ícone')
                     ->badge()
-                    ->color('danger'),
+                    ->color('danger')
+                    ->formatStateUsing(fn (?string $state) => LinkBio::ICONES[$state] ?? $state),
 
                 TextColumn::make('label')
                     ->label('Botão')

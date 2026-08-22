@@ -168,21 +168,42 @@
             box-shadow: 0 0 0 1px rgba(142, 21, 18, 0.5), 0 0 22px rgba(142, 21, 18, 0.35);
             transform: translateY(-1px);
         }
+        /* Tile do ícone: plataformas externas usam a cor da própria marca;
+           links do site usam o vermelho da Print Garage 3D. */
         .link .icon {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             flex: none;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            /* padrão = links internos */
             background: rgba(142, 21, 18, 0.22);
             border: 1px solid rgba(142, 21, 18, 0.55);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
             color: var(--brand-icon);
+        }
+        .link .icon svg { width: 22px; height: 22px; display: block; }
+
+        .link .icon--wa {
+            background: #25D366;
+            border-color: #25D366;
+            color: #fff;
+        }
+        .link .icon--ig {
+            background: linear-gradient(45deg, #FEDA75 0%, #FA7E1E 25%, #D62976 50%, #962FBF 75%, #4F5BD5 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+        .link .icon--tiktok {
+            background: #111111;
+            border-color: rgba(242, 239, 234, 0.22);
+            color: #fff;
+        }
+        .link .icon--pix {
+            background: #32BCAD;
+            border-color: #32BCAD;
+            color: #fff;
         }
         .link .text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
         .link .label { font-size: 15px; font-weight: 600; color: var(--txt); }
@@ -246,7 +267,7 @@
                class="link"
                data-link-id="{{ $link->id }}"
                @if($link->isExterno()) target="_blank" rel="noopener" @endif>
-                <span class="icon" aria-hidden="true">{{ $link->icone }}</span>
+                @include('site.partials.link-icone', ['icone' => $link->icone])
                 <span class="text">
                     <span class="label">{{ $link->label }}</span>
                     @if($link->hint)

@@ -42,6 +42,18 @@ class LinkBioSeeder extends Seeder
                 'hint'  => 'Protótipos, brindes, peças técnicas',
             ],
             [
+                'icone' => 'BARBER',
+                'label' => 'Catálogo para Barbearias',
+                'url'   => '/exclusivo/barbearia',
+                'hint'  => 'Peças 3D com a logo da sua barbearia',
+            ],
+            [
+                'icone' => 'PET',
+                'label' => 'Parceria para Pet Shops',
+                'url'   => '/parceria/petshop',
+                'hint'  => 'Miniaturas 3D de pets · R$ 120 de margem',
+            ],
+            [
                 'icone' => 'PAR',
                 'label' => 'Parcerias',
                 'url'   => '/parcerias',
@@ -62,10 +74,18 @@ class LinkBioSeeder extends Seeder
         ];
 
         foreach ($links as $i => $link) {
-            LinkBio::firstOrCreate(
+            $registro = LinkBio::firstOrCreate(
                 ['label' => $link['label']],
                 $link + ['ordem' => $i + 1, 'ativo' => true, 'cliques' => 0]
             );
+
+            // A ordem acima do array é a canônica. Reaplicá-la mantém a lista
+            // coerente quando links novos entram no meio — sem isso, um link
+            // adicionado depois herdaria uma ordem que colide com as existentes.
+            // Só mexe na ordem: label, url, ícone e cliques ficam como estão.
+            if (! $registro->wasRecentlyCreated && $registro->ordem !== $i + 1) {
+                $registro->update(['ordem' => $i + 1]);
+            }
         }
     }
 }
