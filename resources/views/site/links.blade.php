@@ -185,6 +185,14 @@
         }
         .link .icon svg { width: 22px; height: 22px; display: block; }
 
+        /* Ajuste óptico: os glifos das marcas são preenchidos e ficam sobre
+           fundo claro, então pesam mais que os ícones de contorno. Um pouco
+           menores, eles ocupam o mesmo espaço visual que os demais. */
+        .link .icon--wa svg,
+        .link .icon--ig svg,
+        .link .icon--tiktok svg,
+        .link .icon--pix svg { width: 20px; height: 20px; }
+
         .link .icon--wa {
             background: #25D366;
             border-color: #25D366;

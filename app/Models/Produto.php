@@ -23,6 +23,7 @@ class Produto extends Model
         'preco_custo',
         'estoque_atual',
         'estoque_minimo',
+        'sob_encomenda',
         'imagem_principal',
         'video',
         'destaque',
@@ -37,6 +38,7 @@ class Produto extends Model
             'preco_custo' => 'decimal:2',
             'estoque_atual' => 'integer',
             'estoque_minimo' => 'integer',
+            'sob_encomenda' => 'boolean',
             'destaque' => 'boolean',
             'visivel_site' => 'boolean',
             'ativo' => 'boolean',
@@ -91,9 +93,13 @@ class Produto extends Model
         return $query->where('destaque', true);
     }
 
+    /**
+     * Produtos sob encomenda nunca têm "estoque baixo": não há peça parada.
+     */
     public function scopeEstoqueBaixo(Builder $query): Builder
     {
-        return $query->whereColumn('estoque_atual', '<=', 'estoque_minimo');
+        return $query->where('sob_encomenda', false)
+            ->whereColumn('estoque_atual', '<=', 'estoque_minimo');
     }
 
     public function scopeDoTipo(Builder $query, string $tipo): Builder
@@ -103,13 +109,24 @@ class Produto extends Model
 
     // ====== Helpers ======
 
+    /**
+     * Produto sob encomenda é sempre vendável: a peça é impressa depois da venda.
+     */
     public function temEstoque(int $quantidade = 1): bool
     {
-        return $this->estoque_atual >= $quantidade;
+        return $this->sob_encomenda || $this->estoque_atual >= $quantidade;
     }
 
     public function temEstoqueBaixo(): bool
     {
-        return $this->estoque_atual <= $this->estoque_minimo;
+        return ! $this->sob_encomenda && $this->estoque_atual <= $this->estoque_minimo;
+    }
+
+    /**
+     * Se o produto participa do controle de estoque (baixa, devolução, alertas).
+     */
+    public function controlaEstoque(): bool
+    {
+        return ! $this->sob_encomenda;
     }
 }

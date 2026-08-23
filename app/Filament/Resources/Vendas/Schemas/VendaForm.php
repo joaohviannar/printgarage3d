@@ -107,7 +107,8 @@ class VendaForm
                                     ->searchable()
                                     ->preload()
                                     ->required()
-                                    ->columnSpan(6)
+                                    // Empilha no celular; só divide em colunas a partir de md.
+                                    ->columnSpan(['default' => 12, 'md' => 5])
                                     ->live()
                                     ->afterStateUpdated(function ($state, $set) {
                                         if ($state) {
@@ -126,7 +127,7 @@ class VendaForm
                                     ->default(1)
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->columnSpan(2),
+                                    ->columnSpan(['default' => 4, 'md' => 2]),
 
                                 TextInput::make('preco_unitario')
                                     ->label('Preço Unit. (R$)')
@@ -135,11 +136,13 @@ class VendaForm
                                     ->minValue(0)
                                     ->required()
                                     ->live(onBlur: true)
-                                    ->columnSpan(2),
+                                    // Precisa de mais espaço que os vizinhos: o prefixo "R$"
+                                    // come largura e antes espremia o valor para fora da vista.
+                                    ->columnSpan(['default' => 8, 'md' => 3]),
 
                                 Placeholder::make('subtotal_display')
                                     ->label('Subtotal')
-                                    ->columnSpan(2)
+                                    ->columnSpan(['default' => 12, 'md' => 2])
                                     ->content(function ($get) {
                                         $qtd = (float) ($get('quantidade') ?? 0);
                                         $preco = (float) ($get('preco_unitario') ?? 0);

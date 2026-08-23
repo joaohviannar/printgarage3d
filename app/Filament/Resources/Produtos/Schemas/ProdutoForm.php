@@ -124,13 +124,24 @@ class ProdutoForm
                             ->minValue(0)
                             ->helperText('Para calcular margem de lucro'),
 
+                        Toggle::make('sob_encomenda')
+                            ->label('Produto sob encomenda')
+                            ->default(false)
+                            ->live()
+                            ->columnSpanFull()
+                            ->helperText('Ligue para peças impressas só depois da venda. O sistema deixa de exigir estoque e para de avisar sobre estoque baixo.'),
+
                         TextInput::make('estoque_atual')
                             ->label('Estoque Atual')
                             ->required()
                             ->numeric()
                             ->integer()
                             ->default(0)
-                            ->minValue(0),
+                            ->minValue(0)
+                            // Sob encomenda não há peça na prateleira: os campos
+                            // de estoque deixam de valer.
+                            ->disabled(fn ($get) => (bool) $get('sob_encomenda'))
+                            ->dehydrated(),
 
                         TextInput::make('estoque_minimo')
                             ->label('Estoque Mínimo (alerta)')
@@ -139,6 +150,8 @@ class ProdutoForm
                             ->integer()
                             ->default(1)
                             ->minValue(0)
+                            ->disabled(fn ($get) => (bool) $get('sob_encomenda'))
+                            ->dehydrated()
                             ->helperText('Avisa quando atingir esse valor'),
                     ]),
 

@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\Vendas\Pages;
 
+use App\Exceptions\EstoqueInsuficienteException;
 use App\Filament\Resources\Vendas\VendaResource;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class EditVenda extends EditRecord
 {
@@ -43,6 +45,26 @@ class EditVenda extends EditRecord
                     }
                 }),
         ];
+    }
+
+    /**
+     * Mesma proteção do CreateVenda: aumentar a quantidade de um item pode
+     * faltar estoque, e o erro precisa dizer qual produto travou.
+     */
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+        try {
+            return parent::handleRecordUpdate($record, $data);
+        } catch (EstoqueInsuficienteException $e) {
+            Notification::make()
+                ->title('Alteração não salva: falta estoque')
+                ->body($e->getMessage() . ' Se essa peça é impressa só depois da venda, marque o produto como "sob encomenda" no cadastro.')
+                ->danger()
+                ->persistent()
+                ->send();
+
+            $this->halt();
+        }
     }
 
     /**

@@ -97,6 +97,9 @@ class ImportMafagrafosCommand extends Command
                     'preco_custo'    => 0,
                     'estoque_atual'  => 0,
                     'estoque_minimo' => 1,
+                    // Modelos do Mafagrafos são impressos só depois da venda:
+                    // sem isso a venda trava por falta de estoque.
+                    'sob_encomenda'  => true,
                     'imagem_principal'=> $imagemPath,
                     'destaque'       => false,
                     'visivel_site'   => $publicar,

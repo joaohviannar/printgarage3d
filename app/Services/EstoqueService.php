@@ -34,9 +34,15 @@ class EstoqueService
         ?int $referenciaId = null,
         ?int $userId = null,
         ?string $observacao = null,
-    ): MovimentacaoEstoque {
+    ): ?MovimentacaoEstoque {
         if ($quantidade <= 0) {
             throw new \InvalidArgumentException('Quantidade deve ser positiva.');
+        }
+
+        // Produto sob encomenda nao tem peca pronta: a impressao comeca depois
+        // da venda. Nao ha o que baixar nem estoque minimo a respeitar.
+        if (! $produto->controlaEstoque()) {
+            return null;
         }
 
         return DB::transaction(function () use ($produto, $quantidade, $origem, $referenciaId, $userId, $observacao) {
@@ -77,9 +83,15 @@ class EstoqueService
         ?int $referenciaId = null,
         ?int $userId = null,
         ?string $observacao = null,
-    ): MovimentacaoEstoque {
+    ): ?MovimentacaoEstoque {
         if ($quantidade <= 0) {
             throw new \InvalidArgumentException('Quantidade deve ser positiva.');
+        }
+
+        // Simetrico ao darBaixa: se nao houve baixa, nao pode haver devolucao —
+        // do contrario cancelar uma venda criaria estoque fantasma.
+        if (! $produto->controlaEstoque()) {
+            return null;
         }
 
         return DB::transaction(function () use ($produto, $quantidade, $origem, $referenciaId, $userId, $observacao) {
