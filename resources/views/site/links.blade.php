@@ -185,23 +185,21 @@
         }
         .link .icon svg { width: 22px; height: 22px; display: block; }
 
-        /* Ajuste óptico: os glifos das marcas são preenchidos e ficam sobre
-           fundo claro, então pesam mais que os ícones de contorno. Um pouco
-           menores, eles ocupam o mesmo espaço visual que os demais. */
-        .link .icon--wa svg,
-        .link .icon--ig svg,
-        .link .icon--tiktok svg,
-        .link .icon--pix svg { width: 20px; height: 20px; }
-
         .link .icon--wa {
             background: #25D366;
             border-color: #25D366;
             color: #fff;
         }
+        /* O gradiente do Instagram em brilho cheio era o ponto mais luminoso da
+           página e, ao lado dos ícones de contorno em vermelho escuro, o tile
+           parecia maior do que os outros (mede 40x40 como todos). A camada
+           escura por cima baixa o brilho mantendo as cores reconhecíveis. */
         .link .icon--ig {
-            background: linear-gradient(45deg, #FEDA75 0%, #FA7E1E 25%, #D62976 50%, #962FBF 75%, #4F5BD5 100%);
-            border-color: transparent;
-            color: #fff;
+            background:
+                linear-gradient(rgba(10, 10, 12, 0.42), rgba(10, 10, 12, 0.42)),
+                linear-gradient(45deg, #FEDA75 0%, #FA7E1E 25%, #D62976 50%, #962FBF 75%, #4F5BD5 100%);
+            border-color: rgba(214, 41, 118, 0.45);
+            color: rgba(255, 255, 255, 0.92);
         }
         .link .icon--tiktok {
             background: #111111;
